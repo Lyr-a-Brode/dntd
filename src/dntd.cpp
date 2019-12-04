@@ -12,13 +12,13 @@ using namespace dnn;
 
 namespace dntd
 {
-    float confThreshold = 0.3; // Confidence threshold
-    float nmsThreshold = 0.4;  // Non-maximum suppression threshold
+    float confThreshold = 0.5; // Confidence threshold
+    float nmsThreshold = 0.5;  // Non-maximum suppression threshold
     int inpWidth = 416;  // Width of network's input image
     int inpHeight = 416; // Height of network's input image
 
-    constexpr auto modelConfiguration = "/home/oleg/workspace/donatello/dntd/dnn/yolov3.cfg";
-    constexpr auto modelWeights = "/home/oleg/workspace/donatello/dntd/dnn/yolov3.weights";
+    constexpr auto modelConfiguration = "/home/kruglovoleg/workspace/dntd/dnn/yolov3.cfg";
+    constexpr auto modelWeights = "/home/kruglovoleg/workspace/dntd/dnn/yolov3.weights";
 
     std::vector<String> getOutputsNames(const Net& net)
     {
@@ -105,13 +105,17 @@ namespace dntd
             drawPred(classIds[idx], confidences[idx], box.x, box.y,
                     box.x + box.width, box.y + box.height, frame);*/
 
+            std::cout << "Class id: " << classIds[idx] << " confidence: " << confidences[idx] << "\n";    
+
             if (classIds[idx] == 53) 
             {
-                std::cout << "Found pizza " << classIds[idx] << "\n";
+                std::cout << "Found pizza\n";
 
                 return true;
             }
         }
+
+        if (indices.empty()) std::cout << "Nothing was found on an image\n";
 
         return false;
     }

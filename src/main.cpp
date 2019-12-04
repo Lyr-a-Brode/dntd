@@ -44,11 +44,11 @@ int main(int argc, char** argv)
 
             if (dntd::is_pizza(imgData))
             {
-                sock.send("true");
+                sock.send("pizza");
             }
             else
             {
-                sock.send("false");
+                sock.send("dunno");
             }
             
         }        
